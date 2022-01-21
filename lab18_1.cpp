@@ -1,47 +1,43 @@
 #include<iostream>
+#include<cstdlib>
+#include<ctime>
+#include<vector>
 using namespace std;
 
-int main(){
-	int nA,nB;
-	int *A,*B,*C;	
-	
-	cout << "Length of A: ";
-	cin >> nA;
-	
-	A = new int;
-	cout << "Input Array A: ";
-	for(int i=0; i < nA; i++) cin >> A[i];
-	
-	cout << "Length of B: ";
-	cin >> nB;
-	
-	B = new int;
-	cout << "Input Array B: ";
-	for(int i=0; i < nB; i++) cin >> B[i];
-	
-	C = new int;
-	for(int i=0; i < nA; i++) C[i] = new int;
-	
-	for(int i=0; i < nA; i++){
-		for(int j=0; j < nB; j++) {
-			C = A[i]*B[j];
-		}
-	}
-	
-	cout << "\t";
-	for(int i=0; i < nB; i++){
-		cout << B[i] << "\t";
-	}
-	cout << "\n-----------------------------\n";
-	
-	for(int i=0; i < nA; i++){
-		cout << A[i] << "\t";
-		for(int j=0; j < nB; j++) {
-			cout << C[i][j] << "\t";
-		}
-		cout << "\n";
-	}
-     delete A,B,C; 
+vector<int> randomVector(unsigned int);
+void showVector(vector<int>);
+int dotProduct(vector<int>,vector<int>);
 
+int main(){
+	srand(time(0));
+	vector<int> x = randomVector(5);
+	vector<int> y = randomVector(5);
+	int z = dotProduct(x,y);
+	showVector(x);
+	cout << " . ";
+	showVector(y);
+	cout << " = " << z;
+	
 	return 0;
+}
+
+vector<int> randomVector(unsigned int N){
+	vector<int> v;
+    for(unsigned int i = 0; i < N; i++) v.push_back(rand()%10);
+    return v;
+}
+
+void showVector(vector<int> v){
+	cout << "[";
+	for(unsigned int i = 0; i < v.size(); i++){
+		cout << v[i];
+		if(i == (v.size()-1)) cout << "]";
+		else cout << " ";
+	}
+}
+
+int dotProduct(vector<int> a,vector<int> b){
+	int sum = 0;
+	for(unsigned int i = 0; i<a.size(); i++) sum += a[i]*b[i];	
+	return sum;
 }
